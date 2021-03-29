@@ -1,4 +1,9 @@
-### Hi there 👋
+## GitHub Stats
+
+<p width="100%" align="center"> <!--style="max-width:500px;"-->
+  <img src = "https://github-readme-stats.vercel.app/api?username=Jovian-Dsouza&show_icons=true&theme=radical&line_height=27">
+  <img src = "https://github-readme-stats.vercel.app/api/top-langs/?username=Jovian-Dsouza&hide=jupyter notebook,html&theme=tokyonight">
+</p>
 
 <!--
 **Jovian-Dsouza/Jovian-Dsouza** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.

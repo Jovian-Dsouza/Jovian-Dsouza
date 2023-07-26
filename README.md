@@ -15,6 +15,7 @@
 - ▶️ I'm the creator of [JoviTech](https://www.youtube.com/Jovi_tech/?sub_confirmation=1) YouTube channel, where I showcase my inventions in a easy to understand manner.
 
 # 🔨 Projects
+- 📍 [ChecKnights](https://crypto-checkmate.vercel.app/): Decentralized multiplayer chess with crypto betting
 - 📍 [Enigma Paste](https://enigma-paste.vercel.app/): Decentralized pastebin website
 - 📍 [AI NFT](https://ai-nft.joviandsouza.repl.co/): Dapp to Mint your own AI generated NFT
 - 📍[Jovi Token](https://jovitokenico.joviandsouza.repl.co/): My own ERC-20 token

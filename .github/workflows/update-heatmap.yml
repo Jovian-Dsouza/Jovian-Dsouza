@@ -1,0 +1,149 @@
+name: Update contribution heatmap
+
+on:
+  schedule:
+    # Runs at 00:30 UTC every day
+    - cron: '30 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-heatmap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch contribution data
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Fetch contribution calendar via GraphQL API
+          gh api graphql -f query='
+          {
+            user(login: "Jovian-Dsouza") {
+              contributionsCollection {
+                contributionCalendar {
+                  totalContributions
+                  weeks {
+                    contributionDays {
+                      contributionCount
+                      date
+                    }
+                  }
+                }
+              }
+            }
+          }' > /tmp/contrib.json
+
+          # Extract days into a flat JSON array
+          python3 -c "
+          import json
+          with open('/tmp/contrib.json') as f:
+            data = json.load(f)
+          cal = data['data']['user']['contributionsCollection']['contributionCalendar']
+          days = []
+          for w in cal['weeks']:
+            for d in w['contributionDays']:
+              days.append({'date': d['date'], 'count': d['contributionCount']})
+          with open('/tmp/days.json', 'w') as f:
+            json.dump(days, f)
+          print(f'Total: {cal[\"totalContributions\"]} contributions, {len(days)} days')
+          "
+
+      - name: Generate heatmap SVG
+        run: |
+          python3 << 'PYEOF'
+          import json
+
+          with open('/tmp/days.json') as f:
+              days = json.load(f)
+
+          # Group by week
+          weeks = []
+          for i in range(0, len(days), 7):
+              weeks.append(days[i:i+7])
+
+          def get_color(count):
+              if count == 0:
+                  return '#161b22'
+              elif count <= 3:
+                  return '#0e4429'
+              elif count <= 6:
+                  return '#006d32'
+              elif count <= 11:
+                  return '#26a641'
+              else:
+                  return '#39d353'
+
+          cell_size = 11
+          cell_gap = 2
+          label_h = 20
+          month_label_w = 30
+          left_pad = month_label_w + 10
+          top_pad = label_h + 10
+
+          svg_w = left_pad + len(weeks) * (cell_size + cell_gap) + 20
+          svg_h = top_pad + 7 * (cell_size + cell_gap) + 40
+
+          svg_parts = []
+          svg_parts.append(f'<svg xmlns="http://www.w3.org/2000/svg" width="{svg_w}" height="{svg_h}" viewBox="0 0 {svg_w} {svg_h}">')
+          svg_parts.append(f'  <rect width="{svg_w}" height="{svg_h}" fill="#0d1117" rx="8"/>')
+
+          months = ['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']
+          current_month = None
+          for wi, week in enumerate(weeks):
+              if week:
+                  date_str = week[0]['date']
+                  month = int(date_str.split('-')[1])
+                  if month != current_month:
+                      current_month = month
+                      month_name = months[(month - 8) % 12] if month >= 8 else months[(month + 4) % 12]
+                      x = left_pad + wi * (cell_size + cell_gap)
+                      svg_parts.append(f'  <text x="{x}" y="15" font-family="monospace" font-size="10px" fill="#8b949e">{month_name}</text>')
+
+          day_labels = [(1, 'Mon'), (3, 'Wed'), (5, 'Fri')]
+          for day_idx, label in day_labels:
+              y = top_pad + day_idx * (cell_size + cell_gap) + 8
+              svg_parts.append(f'  <text x="10" y="{y}" font-family="monospace" font-size="10px" fill="#8b949e">{label}</text>')
+
+          total_cells = 0
+          for wi, week in enumerate(weeks):
+              for di, day in enumerate(week):
+                  if day:
+                      x = left_pad + wi * (cell_size + cell_gap)
+                      y = top_pad + di * (cell_size + cell_gap)
+                      color = get_color(day['count'])
+                      delay = total_cells * 0.008
+                      cell_id = f'c{wi}_{di}'
+                      svg_parts.append(f'  <rect id="{cell_id}" x="{x}" y="{y}" width="{cell_size}" height="{cell_size}" rx="2" fill="#161b22" opacity="0">')
+                      svg_parts.append(f'    <animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="{delay:.3f}s" fill="freeze"/>')
+                      if day['count'] > 0:
+                          svg_parts.append(f'    <animate attributeName="fill" from="#161b22" to="{color}" dur="0.3s" begin="{delay:.3f}s" fill="freeze"/>')
+                      svg_parts.append(f'  </rect>')
+                      total_cells += 1
+
+          total_contribs = sum(d['count'] for d in days)
+          svg_parts.append(f'  <text x="15" y="{svg_h - 15}" font-family="monospace" font-size="12px" fill="#e6edf3"><tspan fill="#58a6ff">jovian@github</tspan><tspan>: </tspan><tspan fill="#7ee787">{total_contribs}</tspan><tspan> contributions in the last year</tspan></text>')
+
+          svg_parts.append('</svg>')
+          svg_content = '\n'.join(svg_parts)
+
+          with open('contrib-heatmap.svg', 'w') as f:
+              f.write(svg_content)
+          print(f'Generated heatmap: {svg_w}x{svg_h}, {total_cells} cells, {total_contribs} contributions')
+          PYEOF
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add contrib-heatmap.svg
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: refresh contribution heatmap [skip ci]"
+            git push
+          fi

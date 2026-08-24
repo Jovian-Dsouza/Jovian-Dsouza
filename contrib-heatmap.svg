@@ -1359,15 +1359,21 @@
   </rect>
   <rect id="c51_4" x="703" y="82" width="11" height="11" rx="2" fill="#161b22" opacity="0">
     <animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="2.888s" fill="freeze"/>
+    <animate attributeName="fill" from="#161b22" to="#0e4429" dur="0.3s" begin="2.888s" fill="freeze"/>
   </rect>
   <rect id="c51_5" x="703" y="95" width="11" height="11" rx="2" fill="#161b22" opacity="0">
     <animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="2.896s" fill="freeze"/>
+    <animate attributeName="fill" from="#161b22" to="#0e4429" dur="0.3s" begin="2.896s" fill="freeze"/>
   </rect>
   <rect id="c51_6" x="703" y="108" width="11" height="11" rx="2" fill="#161b22" opacity="0">
     <animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="2.904s" fill="freeze"/>
   </rect>
   <rect id="c52_0" x="716" y="30" width="11" height="11" rx="2" fill="#161b22" opacity="0">
     <animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="2.912s" fill="freeze"/>
+    <animate attributeName="fill" from="#161b22" to="#006d32" dur="0.3s" begin="2.912s" fill="freeze"/>
   </rect>
-  <text x="15" y="146" font-family="monospace" font-size="12px" fill="#e6edf3"><tspan fill="#58a6ff">jovian@github</tspan><tspan>: </tspan><tspan fill="#7ee787">2295</tspan><tspan> contributions in the last year</tspan></text>
+  <rect id="c52_1" x="716" y="43" width="11" height="11" rx="2" fill="#161b22" opacity="0">
+    <animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="2.920s" fill="freeze"/>
+  </rect>
+  <text x="15" y="146" font-family="monospace" font-size="12px" fill="#e6edf3"><tspan fill="#58a6ff">jovian@github</tspan><tspan>: </tspan><tspan fill="#7ee787">2304</tspan><tspan> contributions in the last year</tspan></text>
 </svg>

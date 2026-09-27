@@ -10,14 +10,16 @@
 
 ![Jovian's GitHub contribution graph - auto-refreshed daily](./contrib-heatmap.svg)
 
-### `jovian@github ~ $ ./links.sh`
 
-**Physical AI · Robotics · On-Device Perception**
+
+### `jovian@github ~ $ ./links.sh`
 
 ![Portfolio](https://img.shields.io/badge/Portfolio-jovitech.dev-0d1117?style=for-the-badge&logo=googlechrome&logoColor=white)
 ![GitHub](https://img.shields.io/badge/GitHub-Jovian--Dsouza-0d1117?style=for-the-badge&logo=github&logoColor=white)
 ![Twitter](https://img.shields.io/badge/Twitter-@DsouzaJovian-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)
 ![YouTube](https://img.shields.io/badge/YouTube-JoviTech-FF0000?style=for-the-badge&logo=youtube&logoColor=white)
+
+
 
 ### `jovian@github ~ $ cat stack.json`
 
@@ -38,13 +40,11 @@
 - 🌍 **World Models** - Learned dynamics for prediction and planning
 - 🤖 **Real Robot Arm** - Motion and closed-loop control on physical arms
 - 📷 **Edge Perception** - On-device vision, camera ML, screen understanding
-- 🔧 **Embedded Hardware** - Raspberry Pi, NFC, touch displays, sensor I/O
+- 🔧 **Embedded Hardware** - Raspberry Pi, touch displays, sensor, motors, on device ai
 
 
 
 ### `jovian@github ~ $ ls ./field/`
-
-Robotics, in the room.
 
 
 |                                                                                                              |                                                                                                                |

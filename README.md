@@ -14,10 +14,10 @@
 
 ### `jovian@github ~ $ ./links.sh`
 
-![Portfolio](https://img.shields.io/badge/Portfolio-jovitech.dev-0d1117?style=for-the-badge&logo=googlechrome&logoColor=white)
-![GitHub](https://img.shields.io/badge/GitHub-Jovian--Dsouza-0d1117?style=for-the-badge&logo=github&logoColor=white)
-![Twitter](https://img.shields.io/badge/Twitter-@DsouzaJovian-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)
-![YouTube](https://img.shields.io/badge/YouTube-JoviTech-FF0000?style=for-the-badge&logo=youtube&logoColor=white)
+[![Portfolio](https://img.shields.io/badge/Portfolio-jovitech.dev-0d1117?style=for-the-badge)](https://jovitech.dev)
+[![GitHub](https://img.shields.io/badge/GitHub-Jovian--Dsouza-0d1117?style=for-the-badge)](https://github.com/Jovian-Dsouza)
+[![X](https://img.shields.io/badge/X-@DsouzaJovian-000000?style=for-the-badge)](https://x.com/DsouzaJovian)
+[![YouTube](https://img.shields.io/badge/YouTube-JoviTech-FF0000?style=for-the-badge)](https://youtube.com/@JoviTech)
 
 
 
